@@ -1,0 +1,37 @@
+<tool id="opensmile-fea" name="Feature Extraction (using openSMILE)" version="0.1.0">
+    <description> the first tool developed for feature extraction </description>
+    <requirements>
+        <requirement type="binary">SMILExtract</requirement>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        SMILExtract -C $feature_config -I $input1 -O $output1
+    ]]></command>
+    <inputs>
+        <param type="data" name="input1" format="wav" label="Input Audio Files"/>
+        <param name="feature_config" type="select" label="Choose Config File">
+            <option value="../config-smile/IS09_emotion.conf" selected="True">IS09</option>
+            <option value="../config-smile/IS10_paraling.conf">IS10</option>
+            <option value="../config-smile/gemaps/GeMAPSv01a.conf">GeMAPS</option>
+            <option value="../config-smile/gemaps/eGeMAPSv01a.conf">eGeMAPS</option>
+        </param>
+        <param name="feature_level" type="select" display="checkboxes" multiple="True" label="Functionals/LLDs">
+            <option value="funs">Functionals</option>
+            <option value="llds">Low Level Descriptors</option>
+        </param>
+    </inputs>
+    <outputs>
+        <data name="output1" format="csv"/>
+    </outputs>
+    <tests>
+        <test>
+            <param name="input1" value="input.wav"/>
+            <param name="feature_config" value="IS09_emotion.conf">
+            <output name="output1" file="output1.csv"/>
+        </test>
+    </tests>
+    <help><![CDATA[
+        This tool aims to extract acoustic features (including functionals and low-level descriptors using the openSMILE toolkit)
+    ]]></help>
+    <citations>
+    </citations>
+</tool>
